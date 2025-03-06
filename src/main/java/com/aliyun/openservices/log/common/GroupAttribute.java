@@ -12,20 +12,29 @@ public class GroupAttribute implements Serializable {
 	private static final long serialVersionUID = -537679331882943768L;
 	private String externalName = "";
 	private String groupTopic = "";
-	
+	private boolean heartbeatMonitoring = false;
+
 	public GroupAttribute() {
 	}
-	
+
 	public GroupAttribute(String externalName, String groupTopic) {
 		super();
 		this.externalName = externalName;
 		this.groupTopic = groupTopic;
+	}
+
+	public GroupAttribute(String externalName, String groupTopic, boolean heartbeatMonitoring) {
+		super();
+		this.externalName = externalName;
+		this.groupTopic = groupTopic;
+		this.heartbeatMonitoring = heartbeatMonitoring;
 	}
 	
 	public GroupAttribute(GroupAttribute groupAttribute) {
 		super();
 		this.externalName = groupAttribute.GetExternalName();
 		this.groupTopic = groupAttribute.GetGroupTopic();
+		this.heartbeatMonitoring = groupAttribute.GetHeartbeatMonitoring();
 	}
 	
 	public String GetExternalName() {
@@ -41,11 +50,19 @@ public class GroupAttribute implements Serializable {
 	public void SetGroupTopic(String groupTopic) {
 		this.groupTopic = groupTopic;
 	}
+
+	public boolean GetHeartbeatMonitoring() {
+		return heartbeatMonitoring;
+	}
+	public void SetHeartbeatMonitoring(boolean heartbeatMonitoring) {
+		this.heartbeatMonitoring = heartbeatMonitoring;
+	}
 	
 	public JSONObject ToJsonObject() {
 		JSONObject groupAttributeDict = new JSONObject();
 		groupAttributeDict.put("groupTopic", GetGroupTopic());
 		groupAttributeDict.put("externalName", GetExternalName());
+		groupAttributeDict.put("heartbeatMonitoring", GetHeartbeatMonitoring());
 		return groupAttributeDict;
 	}
 	
@@ -57,6 +74,7 @@ public class GroupAttribute implements Serializable {
 		try {
 			this.externalName = groupAttribute.getString("externalName");
 			this.groupTopic = groupAttribute.getString("groupTopic");
+			this.heartbeatMonitoring = groupAttribute.getBoolean("heartbeatMonitoring");
 		} catch (JSONException e) {
 			throw new LogException("FailToGenerateGroupAttribute", e.getMessage(), e, "");
 		}

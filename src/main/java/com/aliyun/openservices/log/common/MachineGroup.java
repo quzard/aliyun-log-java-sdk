@@ -160,6 +160,10 @@ public class MachineGroup implements Serializable {
         return groupAttribute.GetGroupTopic();
     }
 
+    public boolean GetHeartbeatMonitoring() {
+        return groupAttribute.GetHeartbeatMonitoring();
+    }
+
     public void SetGroupTopic(String groupTopic) {
         groupAttribute.SetGroupTopic(groupTopic);
     }
